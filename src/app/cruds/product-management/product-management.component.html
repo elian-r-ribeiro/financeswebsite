@@ -18,10 +18,10 @@
                 </ng-template>
             </p-toolbar>
 
-            <p-table #dt [value]="items" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['name','documentDate','documentNumber','supplierName', 'amount', 'installmentQuantity', 'dueDate']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Mostrando {first} de {last} do {totalRecords} registros" selectionMode="multiple" [rowHover]="true" dataKey="id">
+            <p-table #dt [value]="items" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['name','descricao','categoria','preco', 'quantidade']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Mostrando {first} de {last} do {totalRecords} registros" selectionMode="multiple" [rowHover]="true" dataKey="id">
                 <ng-template pTemplate="caption">
                     <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                        <h5 class="m-0">Contas a pagar</h5>
+                        <h5 class="m-0">Produtos</h5>
                         <span class="block mt-2 md:mt-0 p-input-icon-left">
                             <i class="pi pi-search"></i>
                             <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Procurar..."  class="w-full sm:w-auto"/>
@@ -31,12 +31,10 @@
                 <ng-template pTemplate="header">
                     <tr>
                         <th pSortableColumn="name">Nome <p-sortIcon field="name"></p-sortIcon></th>
-                        <th pSortableColumn="price">Data Doc <p-sortIcon field="price"></p-sortIcon></th>
-                        <th pSortableColumn="price">Numero Documento <p-sortIcon field="price"></p-sortIcon></th>
-                        <th pSortableColumn="category">Fornecedor <p-sortIcon field="category"></p-sortIcon></th>
-                        <th pSortableColumn="rating">Total <p-sortIcon field="rating"></p-sortIcon></th>
-                        <th pSortableColumn="inventoryStatus">Qtd Parcela <p-sortIcon field="inventoryStatus"></p-sortIcon></th>
-                        <th pSortableColumn="inventoryStatus">Data Vencimento <p-sortIcon field="inventoryStatus"></p-sortIcon></th>
+                        <th pSortableColumn="descricao">Descrição <p-sortIcon field="descricao"></p-sortIcon></th>
+                        <th pSortableColumn="categoria">Categoria <p-sortIcon field="categoria"></p-sortIcon></th>
+                        <th pSortableColumn="preco">Preço <p-sortIcon field="preco"></p-sortIcon></th>
+                        <th pSortableColumn="quantidade">Quantidade <p-sortIcon field="quantidade"></p-sortIcon></th>
                         <th></th>
                     </tr>
                 </ng-template>
@@ -46,28 +44,20 @@
                             {{item.name }}
                         </td>
                         <td style="width:14%; min-width:10rem;">
-                            <span class="p-column-title">Data Doc</span>
-                            {{item.documentDate | date : 'dd/MM/yyyy'}}
+                            <span class="p-column-title">Descric Doc</span>
+                            {{item.descricao}}
                         </td>
                         <td style="width:14%; min-width:8rem;">
-                            <span class="p-column-title">Numero Doc</span>
-                            {{item.documentNumber}}
+                            <span class="p-column-title">Categor Doc</span>
+                            {{item.categoria}}
                         </td>
                         <td style="width:14%; min-width:10rem;">
-                            <span class="p-column-title">Fornecedor</span>
-                            {{item.supplierName}}
+                            <span class="p-column-title">Preco Doc</span>
+                            {{item.preco | currency:'BRL'}}
                         </td>
                         <td style="width:14%; min-width:10rem;">
-                            <span class="p-column-title">Total</span>
-                            {{item.amount | currency:'BRL'}}
-                        </td>
-                        <td style="width:14%; min-width:10rem;">
-                            <span class="p-column-title">Qtd Parcela</span>
-                            {{item.installmentQuantity}}
-                        </td>
-                        <td style="width:14%; min-width:10rem;">
-                            <span class="p-column-title">Data Vencimento</span>
-                            {{item.dueDate | date : 'dd/MM/yyyy'}}
+                            <span class="p-column-title">Qtd Doc</span>
+                            {{item.quantidade}}
                         </td>
 
                         <td>
@@ -92,48 +82,34 @@
                     </small>
                 </div>
                 <div class="field">
-                    <label for="description">Data do Documento</label>
-                    <input type="date" formControlName="documentDate" placeholder="Digite a data do documento" pInputText id="name" required autofocus/>
-                    <small *ngIf="!this.form.get('documentDate')?.valid && (this.form.get('documentDate')?.dirty || this.form.get('documentDate')?.touched)" class="ng-dirty ng-invalid">
-                        O campo data do documento é obrigatório.
+                    <label for="description">Descrição</label>
+                    <input type="text" formControlName="descricao" placeholder="Digite a descrição" pInputText id="name" required autofocus/>
+                    <small *ngIf="!this.form.get('descricao')?.valid && (this.form.get('descricao')?.dirty || this.form.get('descricao')?.touched)" class="ng-dirty ng-invalid">
+                        O campo descrição é obrigatório.
                     </small>
                 </div>
                 <div class="field">
-                    <label for="name">Numero do Documento</label>
-                    <input type="text" formControlName="documentNumber" placeholder="Digite o numero do documento" pInputText id="name" required autofocus/>
-                    <small *ngIf="!this.form.get('documentNumber')?.valid && (this.form.get('documentNumber')?.dirty || this.form.get('documentNumber')?.touched)" class="ng-dirty ng-invalid">
-                        O campo numero do documento é obrigatório.
-                    </small>
-                </div>
-                <div class="field">
-                    <label for="name">Nome do Fornecedor</label>
-                    <input type="text" formControlName="supplierName" placeholder="Digite o nome do fornecedor" pInputText id="name" required autofocus/>
-                    <small *ngIf="!this.form.get('supplierName')?.valid && (this.form.get('supplierName')?.dirty || this.form.get('supplierName')?.touched)" class="ng-dirty ng-invalid">
-                        O campo nome do fornecedor é obrigatório.
+                    <label for="name">Categoria</label>
+                    <input type="text" formControlName="categoria" placeholder="Digite a categoria" pInputText id="name" required autofocus/>
+                    <small *ngIf="!this.form.get('categoria')?.valid && (this.form.get('categoria')?.dirty || this.form.get('categoria')?.touched)" class="ng-dirty ng-invalid">
+                        O campo categoria é obrigatório.
                     </small>
                 </div>
                 <div class="formgrid grid">
                     <div class="field col">
-                        <label for="price">Valor</label>
-                        <p-inputNumber id="price" formControlName="amount" placeholder="Digite o valor" mode="currency" currency="BRL" locale="pt-BR"></p-inputNumber>
-                        <small *ngIf="!this.form.get('amount')?.valid && (this.form.get('amount')?.dirty || this.form.get('amount')?.touched)" class="ng-dirty ng-invalid">
-                            O campo valor é obrigatório.
+                        <label for="preco">Preço</label>
+                        <p-inputNumber id="preco" formControlName="preco" placeholder="Digite o preço" mode="currency" currency="BRL" locale="pt-BR"></p-inputNumber>
+                        <small *ngIf="!this.form.get('preco')?.valid && (this.form.get('preco')?.dirty || this.form.get('preco')?.touched)" class="ng-dirty ng-invalid">
+                            O campo preço é obrigatório.
                         </small>
                     </div>
                     <div class="field col">
-                        <label for="quantity">Quantidade de Parcela</label>
-                        <p-inputNumber id="quantity" formControlName="installmentQuantity" placeholder="Digite a quantidade de parcela"></p-inputNumber>
-                        <small *ngIf="!this.form.get('quantity')?.valid && (this.form.get('quantity')?.dirty || this.form.get('quantity')?.touched)" class="ng-dirty ng-invalid">
-                            O campo quantidade de parcela é obrigatório.
+                        <label for="quantidade">Quantidade</label>
+                        <p-inputNumber id="quantidade" formControlName="quantidade" placeholder="Digite a quantidade"></p-inputNumber>
+                        <small *ngIf="!this.form.get('quantidade')?.valid && (this.form.get('quantidade')?.dirty || this.form.get('quantidade')?.touched)" class="ng-dirty ng-invalid">
+                            O campo quantidade é obrigatório.
                         </small>
                     </div>
-                </div>
-                <div class="field">
-                    <label for="description">Data de Vencimento</label>
-                    <input type="date" formControlName="dueDate" pInputText id="name" required autofocus/>
-                    <small *ngIf="!this.form.get('dueDate')?.valid && (this.form.get('dueDate')?.dirty || this.form.get('dueDate')?.touched)" class="ng-dirty ng-invalid">
-                        O campo data de vencimento é obrigatório.
-                    </small>
                 </div>
                 </form>
             </ng-template>

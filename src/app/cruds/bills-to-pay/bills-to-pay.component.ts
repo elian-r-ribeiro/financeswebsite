@@ -34,6 +34,16 @@ export class BillsToPayComponent implements OnInit {
         this.onLoadCols();
     }
 
+    onLoadCols() {
+        this.cols = [
+            { field: 'name', header: 'Nome' },
+            { field: 'documentDate', header: 'Data do Documento' },
+            { field: 'documentNumber', header: 'Numero do Documento' },
+            { field: 'supplierName', header: 'Fornecedor' },
+            { field: 'amount', header: 'Valor' }
+        ];
+    }
+
     openNew() {
         this.itemDialog = true;
         this.form.reset();
@@ -127,9 +137,5 @@ export class BillsToPayComponent implements OnInit {
 
         this.itemDialog = true;
         this.item.id = id;
-    }
-
-    onLoadCols(){
-        this.cols = [{field: 'name', header: 'Nome'}, {field: 'documentDate', header: 'Data do Documento'}, {field: 'documentNumber', header: 'Numero do documento'}, {field: 'supplierName', header: 'Fornecedor'}, {field: 'amount', header: 'Valor'}];
     }
 }
