@@ -49,13 +49,10 @@ export class BillsToReceiveComponent implements OnInit {
 
     onCreateForm() {
        this.form = this.formBuilder.group({
-          name: ['', Validators.required],
-          documentDate: ['', Validators.required],
-          documentNumber: ['', Validators.required],
-          supplierName: ['', Validators.required],
-          amount: ['', Validators.required],
-          installmentQuantity: ['', Validators.required],
-          dueDate: ['', Validators.required]
+            paymentMethod: ['', Validators.required],
+            receiveDate: ['', Validators.required],
+            invoiceType: ['', Validators.required],
+            observation: ['', Validators.required],
        });
     }
 
